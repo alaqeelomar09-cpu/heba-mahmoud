@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>يوم العلم الأردني</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;background:#0a1628;overflow:hidden;}
+#app{width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;position:relative;font-family:Tahoma,Arial,sans-serif;cursor:pointer;}
+canvas{position:absolute;inset:0;pointer-events:none;}
+#icon{display:flex;flex-direction:column;align-items:center;gap:16px;z-index:2;}
+.flag-sm{width:130px;height:78px;border-radius:6px;overflow:hidden;position:relative;box-shadow:0 6px 28px rgba(0,0,0,0.8);border:2.5px solid #D4AF37;transition:transform 0.15s;}
+.flag-sm:active{transform:scale(0.92);}
+.s1{background:#000;height:26px;}
+.s2{background:#fff;height:26px;}
+.s3{background:#007A3D;height:26px;}
+.tri{position:absolute;top:0;left:0;border-top:39px solid transparent;border-bottom:39px solid transparent;border-left:62px solid #CE1126;}
+.star-sm{position:absolute;top:50%;left:21px;transform:translate(-50%,-50%);}
+.hint{color:#D4AF37;font-size:17px;font-weight:bold;text-align:center;animation:pulse 1.8s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+
+#card{display:none;position:absolute;inset:0;background:#0a1628;z-index:10;overflow-y:auto;-webkit-overflow-scrolling:touch;flex-direction:column;align-items:center;text-align:center;padding:24px 18px 40px;animation:zoomIn 0.5s cubic-bezier(0.34,1.56,0.64,1);}
+@keyframes zoomIn{from{opacity:0;transform:scale(0.5);}to{opacity:1;transform:scale(1);}}
+#card.open{display:flex;}
+#close{align-self:flex-end;color:#D4AF37;font-size:30px;padding:4px 12px;cursor:pointer;}
+.flag-lg{width:260px;height:150px;border-radius:8px;overflow:hidden;position:relative;border:3px solid #D4AF37;margin:0 auto 18px;box-shadow:0 10px 40px rgba(0,0,0,0.8);}
+.l1{background:#000;height:50px;}
+.l2{background:#fff;height:50px;}
+.l3{background:#007A3D;height:50px;}
+.ltri{position:absolute;top:0;left:0;border-top:75px solid transparent;border-bottom:75px solid transparent;border-left:118px solid #CE1126;}
+.lstar{position:absolute;top:50%;left:40px;transform:translate(-50%,-50%);}
+.gline{height:3px;background:linear-gradient(90deg,transparent,#D4AF37,#F5D060,#D4AF37,transparent);width:80%;margin:0 auto 14px;border-radius:2px;}
+.T1{color:#F5D060;font-size:clamp(22px,6vw,36px);font-weight:bold;margin-bottom:8px;}
+.T2{color:#fff;font-size:clamp(14px,4vw,20px);margin-bottom:14px;opacity:0.9;}
+.verse{color:#D4AF37;font-size:clamp(14px,3.8vw,19px);line-height:2;margin-bottom:6px;}
+.sep{color:#D4AF37;font-size:18px;letter-spacing:8px;margin:12px 0;}
+.box{background:rgba(212,175,55,0.12);border:2px solid #D4AF37;border-radius:14px;padding:16px 24px;margin:10px auto 0;width:90%;max-width:340px;}
+.bl{color:#D4AF37;font-size:15px;opacity:0.8;margin-bottom:6px;}
+.bn{color:#F5D060;font-size:clamp(20px,5.5vw,28px);font-weight:bold;}
+.motto{color:#D4AF37;font-size:clamp(15px,4vw,19px);font-weight:bold;margin-top:16px;}
+</style>
+</head>
+<body>
+<div id="app">
+  <canvas id="cv"></canvas>
+  <div id="icon">
+    <div class="flag-sm" id="flagbtn">
+      <div class="s1"></div><div class="s2"></div><div class="s3"></div>
+      <div class="tri"></div>
+      <svg class="star-sm" width="24" height="24" viewBox="0 0 28 28">
+        <polygon points="14,2 16,9 23,9 17.5,13.5 19.5,21 14,16.5 8.5,21 10.5,13.5 5,9 12,9" fill="white"/>
+      </svg>
+    </div>
+    <div class="hint">✨ اضغط على العلم ✨</div>
+  </div>
+
+  <div id="card">
+    <div id="close">✕</div>
+    <div class="flag-lg">
+      <div class="l1"></div><div class="l2"></div><div class="l3"></div>
+      <div class="ltri"></div>
+      <svg class="lstar" width="36" height="36" viewBox="0 0 28 28">
+        <polygon points="14,2 16,9 23,9 17.5,13.5 19.5,21 14,16.5 8.5,21 10.5,13.5 5,9 12,9" fill="white"/>
+      </svg>
+    </div>
+    <div class="gline"></div>
+    <div class="T1">يوم العلم الأردني</div>
+    <div class="T2">١٦ يناير — يوم مضيء في تاريخ الأردن</div>
+    <div class="gline" style="width:45%"></div>
+    <div class="verse">بالعلم نرقى وبالمعرفة نبني<br>وطناً يسمو في سماء المجد والشأن</div>
+    <div class="verse">يا أردنُ الأبطال حبّك في القلوب<br>شعلةٌ لا تخبو عبر الأزمان</div>
+    <div class="sep">✦ ✧ ✦ ✧ ✦</div>
+    <div class="box">
+      <div class="bl">إعداد وتصميم</div>
+      <div class="bn">المعلمة هبة الهنداوي</div>
+    </div>
+    <div class="motto">الله ❖ الوطن ❖ الملك</div>
+  </div>
+</div>
+<script>
+var cv=document.getElementById('cv');
+var ctx=cv.getContext('2d');
+var sparks=[];
+var running=false;
+
+function resize(){cv.width=window.innerWidth;cv.height=window.innerHeight;}
+resize();
+window.addEventListener('resize',resize);
+
+function burst(){
+  var W=cv.width,H=cv.height;
+  var cols=['#D4AF37','#F5D060','#fff','#CE1126','#007A3D','#FFD700','#fffacd'];
+  for(var i=0;i<130;i++){
+    var a=Math.random()*Math.PI*2,spd=Math.random()*7+2;
+    sparks.push({x:W/2,y:H*0.38,vx:Math.cos(a)*spd,vy:Math.sin(a)*spd-4,life:1,dec:Math.random()*0.016+0.01,r:Math.random()*3.5+1.5,col:cols[~~(Math.random()*cols.length)]});
+  }
+  if(!running){running=true;animate();}
+}
+
+function animate(){
+  ctx.clearRect(0,0,cv.width,cv.height);
+  sparks.forEach(function(s){s.x+=s.vx;s.y+=s.vy;s.vy+=0.13;s.life-=s.dec;
+    if(s.life>0){ctx.beginPath();ctx.arc(s.x,s.y,s.r*s.life,0,Math.PI*2);ctx.globalAlpha=s.life;ctx.fillStyle=s.col;ctx.fill();ctx.globalAlpha=1;}
+  });
+  sparks=sparks.filter(function(s){return s.life>0;});
+  if(sparks.length){requestAnimationFrame(animate);}else{running=false;}
+}
+
+document.getElementById('flagbtn').addEventListener('click',function(){
+  document.getElementById('card').classList.add('open');
+  burst();setTimeout(burst,400);setTimeout(burst,900);
+});
+document.getElementById('flagbtn').addEventListener('touchend',function(e){
+  e.preventDefault();
+  document.getElementById('card').classList.add('open');
+  burst();setTimeout(burst,400);setTimeout(burst,900);
+},{passive:false});
+document.getElementById('close').addEventListener('click',function(){
+  document.getElementById('card').classList.remove('open');
+  sparks=[];ctx.clearRect(0,0,cv.width,cv.height);
+});
+document.getElementById('card').addEventListener('click',function(e){
+  if(e.target===this){this.classList.remove('open');}
+});
+</script>
+</body>
+</html>
